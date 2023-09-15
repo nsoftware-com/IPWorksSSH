@@ -5,14 +5,14 @@ The provided sample projects offer a concise yet effective demonstration of the 
 IPWorks SSH 2022 libraries for the corresponding edition are required to run these samples.  Free download from: [https://www.nsoftware.com/ipworksssh](https://www.nsoftware.com/ipworksssh)
 
 ## Reference Documentation
-[Java](https://cdn.nsoftware.com/help/IHH/java/)
-[Javascript](https://cdn.nsoftware.com/help/IHH/js/)
-[.NET](https://cdn.nsoftware.com/help/IHH/cs/)
-[Python](https://cdn.nsoftware.com/help/IHH/py/)
-[PHP](https://cdn.nsoftware.com/help/IHH/php/)
-[C++](https://cdn.nsoftware.com/help/IHH/cpp/)
-[macOS](https://cdn.nsoftware.com/help/IHH/mac/)
-[iOS](https://cdn.nsoftware.com/help/IHH/mac/)
+* [Java Edition](https://cdn.nsoftware.com/help/IHH/java/)
+* [Javascript Edition](https://cdn.nsoftware.com/help/IHH/js/)
+* [.NET Edition](https://cdn.nsoftware.com/help/IHH/cs/)
+* [Python Edition](https://cdn.nsoftware.com/help/IHH/py/)
+* [PHP Edition](https://cdn.nsoftware.com/help/IHH/php/)
+* [C++ Edition](https://cdn.nsoftware.com/help/IHH/cpp/)
+* [macOS Edition](https://cdn.nsoftware.com/help/IHH/mac/)
+* [iOS Edition](https://cdn.nsoftware.com/help/IHH/mac/)
 
 ## Sample Projects
 | Sample Project | Description |
