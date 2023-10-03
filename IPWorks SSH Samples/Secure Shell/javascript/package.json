@@ -8,7 +8,7 @@
   "main": "sshell.js",
   "dependencies": {
     "full-icu": "*",
-    "ipworksssh": "^22.0.8658"
+    "ipworksssh": "^22.0.8676"
   },
   "scripts": {
     "sshell": "node sshell.js"

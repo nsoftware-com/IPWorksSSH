@@ -6,11 +6,12 @@ IPWorks SSH 2022 libraries for the corresponding edition are required to run the
 
 ## Reference Documentation
 * [Java Edition](https://cdn.nsoftware.com/help/IHH/java/)
-* [Javascript Edition](https://cdn.nsoftware.com/help/IHH/js/)
 * [.NET Edition](https://cdn.nsoftware.com/help/IHH/cs/)
+* [JavaScript Edition](https://cdn.nsoftware.com/help/IHH/js/)
 * [Python Edition](https://cdn.nsoftware.com/help/IHH/py/)
 * [PHP Edition](https://cdn.nsoftware.com/help/IHH/php/)
 * [C++ Edition](https://cdn.nsoftware.com/help/IHH/cpp/)
+* [Delphi Edition](https://cdn.nsoftware.com/help/IHH/dlp/)
 * [macOS Edition](https://cdn.nsoftware.com/help/IHH/mac/)
 * [iOS Edition](https://cdn.nsoftware.com/help/IHH/mac/)
 
@@ -25,8 +26,8 @@ IPWorks SSH 2022 libraries for the corresponding edition are required to run the
 | [SSH Client](./IPWorks%20SSH%20Samples/SSH%20Client) | This demo shows how to use the SSHClient to establish a secure connection to any SSH host. |
 | [SSH Plex](./IPWorks%20SSH%20Samples/SSH%20Plex) | Shows how to use the SSHPlex component to perform SFTP, SCP, SExec and SShell operations using a single SSH connection. |
 | [SSH Reverse Tunnel](./IPWorks%20SSH%20Samples/SSH%20Reverse%20Tunnel) | Uses the SSHReverseTunnel component to connect to an SSH server and request port forwarding back to the local machine. |
+| [SSH Server](./IPWorks%20SSH%20Samples/SSH%20Server) | This demonstrates the use of SSHServer to build a simple SSH-Enabled server. |
 | [SSH Tunnel](./IPWorks%20SSH%20Samples/SSH%20Tunnel) | Uses the SSHTunnel component to accept incoming plain text connections and tunnel them through SSH. |
-| [Secure SSH Server](./IPWorks%20SSH%20Samples/Secure%20SSH%20Server) | This demonstrates the use of SSHServer to build a simple SSH-Enabled server. |
 | [Secure Shell](./IPWorks%20SSH%20Samples/Secure%20Shell) | Shows how to use the SShell component to remotely and securely execute commands. |
 
 ## Support
