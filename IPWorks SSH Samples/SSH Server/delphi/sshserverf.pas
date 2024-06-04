@@ -29,9 +29,7 @@ type
     iphSSHServer1: TiphSSHServer;
     procedure buttonStartClick(Sender: TObject);
     procedure iphSSHServer1Connected(Sender: TObject; ConnectionId,
-      StatusCode: Integer; const Description: string;
-      var CertStoreType: Integer; var CertStore, CertPassword,
-      CertSubject: string);
+      StatusCode: Integer; const Description: string);
     procedure iphSSHServer1Disconnected(Sender: TObject; ConnectionId,
       StatusCode: Integer; const Description: string);
     procedure iphSSHServer1SSHChannelOpened(Sender: TObject;
@@ -45,19 +43,19 @@ type
       ChannelId: Integer);
     procedure iphSSHServer1SSHChannelOpenRequest(Sender: TObject; ConnectionId,
       ChannelId: Integer; const Service: string; Parameters: string;
-      ParametersB: TBytes; var Accept: Boolean);
+      var Accept: Boolean);
     procedure iphSSHServer1SSHChannelDataIn(Sender: TObject; ConnectionId,
-      ChannelId: Integer; Data: string; DataB: TBytes);
+      ChannelId: Integer; Data: string; DataB: TArray<System.Byte>);
     procedure iphSSHServer1SSHChannelRequest(Sender: TObject; ConnectionId,
       ChannelId: Integer; const RequestType: string; Packet: string;
-      PacketB: TBytes; var Success: Boolean);
+      PacketB: TArray<System.Byte>; var Success: Boolean);
     procedure iphSSHServer1SSHUserAuthRequest(Sender: TObject;
       ConnectionId: Integer; const User, Service, AuthMethod, AuthParam: string;
       var Accept, PartialSuccess: Boolean; var AvailableMethods: string;
       const KeyAlgorithm: string);
     procedure iphSSHServer1SSHChannelRequested(Sender: TObject; ConnectionId,
       ChannelId: Integer; const RequestType: string; Packet: string;
-      PacketB: TBytes);
+      PacketB: TArray<System.Byte>);
   private
     { Private declarations }
   public
@@ -105,9 +103,7 @@ begin
 end;
 
 procedure TFormSshserver.iphSSHServer1Connected(Sender: TObject; ConnectionId,
-  StatusCode: Integer; const Description: string
-  var CertStoreType: Integer; var CertStore, CertPassword,
-  CertSubject: string);
+  StatusCode: Integer; const Description: string);
 begin
 	if not StatusCode = 0 then
 	begin
@@ -125,9 +121,9 @@ begin
 	memoResponse.Lines.Add('Client ' + IntToStr(ConnectionId) + ' disconnected.');
 end;
 
-procedure TFormSshserver.iphSSHServer1SSHChannelRequest(Sender: TObject; ConnectionId,
-  ChannelId: Integer; const RequestType: string; Packet: string;
-  PacketB: TBytes; var Success: Boolean);
+procedure TFormSshserver.iphSSHServer1SSHChannelRequest(Sender: TObject;
+  ConnectionId, ChannelId: Integer; const RequestType: string; Packet: string;
+  PacketB: TArray<System.Byte>; var Success: Boolean);
 begin
 	memoResponse.Lines.Add('OnSSHChannelRequest Event: ' + IntToStr(ChannelId) + ' (Request type ' + RequestType + ')');
 	Success := true;
@@ -135,9 +131,9 @@ end;
 
 
 
-procedure TFormSshserver.iphSSHServer1SSHChannelRequested(Sender: TObject; ConnectionId,
-  ChannelId: Integer; const RequestType: string; Packet: string;
-  PacketB: TBytes);
+procedure TFormSshserver.iphSSHServer1SSHChannelRequested(Sender: TObject;
+  ConnectionId, ChannelId: Integer; const RequestType: string; Packet: string;
+  PacketB: TArray<System.Byte>);
 var
     sshParam  : string;
     data :  AnsiString;
@@ -195,8 +191,8 @@ begin
 	memoResponse.Lines.Add('OnSSHChannelClosed Event: ' + IntToStr(ChannelId) + '');
 end;
 
-procedure TFormSshserver.iphSSHServer1SSHChannelDataIn(Sender: TObject; ConnectionId,
-  ChannelId: Integer; Data: string; DataB: TBytes);
+procedure TFormSshserver.iphSSHServer1SSHChannelDataIn(Sender: TObject;
+  ConnectionId, ChannelId: Integer; Data: string; DataB: TArray<System.Byte>);
 begin
   iphSSHServer1.DataToSendB[ChannelId] := DataB;
 	memoResponse.Lines.Add('Echoing '' + Data + '' to client ' + IntToStr(ChannelId) + '.');
@@ -209,9 +205,9 @@ begin
 end;
 
 
-procedure TFormSshserver.iphSSHServer1SSHChannelOpenRequest(Sender: TObject; ConnectionId,
-  ChannelId: Integer; const Service: string; Parameters: string;
-  ParametersB: TBytes; var Accept: Boolean);
+procedure TFormSshserver.iphSSHServer1SSHChannelOpenRequest(Sender: TObject;
+  ConnectionId, ChannelId: Integer; const Service: string; Parameters: string;
+  var Accept: Boolean);
 begin
    memoResponse.Lines.Add('OnSSHChannelOpenRequest Event: ' + IntToStr(ChannelId) + ' (' + Service + ')');
    Accept := true;

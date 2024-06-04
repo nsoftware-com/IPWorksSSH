@@ -24,12 +24,12 @@ type
     Label7: TLabel;
     txtPort: TEdit;
     procedure btnExecuteClick(Sender: TObject);
-    procedure iphSExec1SSHServerAuthentication(Sender: TObject; HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm,
+    procedure iphSExec1SSHServerAuthentication(Sender: TObject; HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm,
       CertSubject, CertIssuer, Status: string; var Accept: Boolean);
     procedure iphSExec1Stdout(Sender: TObject; Text: string;
-      TextB: TBytes);
+      TextB: TArray<System.Byte>);
     procedure iphSExec1Stderr(Sender: TObject; Text: string;
-      TextB: TBytes);
+      TextB: TArray<System.Byte>);
   private
     { Private declarations }
   public
@@ -45,14 +45,14 @@ implementation
 
 
 procedure TFormSexec.iphSExec1SSHServerAuthentication(Sender: TObject;
-  HostKey: string; HostKeyB: TBytes; const Fingerprint,
+  HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint,
   KeyAlgorithm, CertSubject, CertIssuer, Status: string; var Accept: Boolean);
 begin
   Accept := True;
 end;
 
 procedure TFormSexec.iphSExec1Stderr(Sender: TObject; Text: string;
-  TextB: TBytes);
+  TextB: TArray<System.Byte>);
 begin
         txtResponse.Lines.Add(StringReplace(Text,#10,#13#10,[rfReplaceAll]));
         txtResponse.SelStart := Length(txtResponse.Text);
@@ -60,7 +60,7 @@ begin
 end;
 
 procedure TFormSexec.iphSExec1Stdout(Sender: TObject; Text: string;
-  TextB: TBytes);
+  TextB: TArray<System.Byte>);
 begin
         txtResponse.Lines.Add(StringReplace(Text,#10,#13#10,[rfReplaceAll]));
         txtResponse.SelStart := Length(txtResponse.Text);

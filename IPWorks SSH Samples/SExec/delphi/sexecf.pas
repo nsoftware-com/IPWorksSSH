@@ -35,7 +35,7 @@ type
     txtResponse: TMemo;
     Label6: TLabel;
     procedure iphSExec1SSHServerAuthentication(Sender: TObject;
-      HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+      HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
       Status: string; var Accept: Boolean);
     procedure iphSExec1Stdout(Sender: TObject; Text: String);
     procedure btnExecuteClick(Sender: TObject);
@@ -54,7 +54,7 @@ implementation
 {$R *.dfm}
 
 procedure TFormSexec.iphSExec1SSHServerAuthentication(Sender: TObject;
-  HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+  HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
   Status: string; var Accept: Boolean);
 begin
         Accept := True;
