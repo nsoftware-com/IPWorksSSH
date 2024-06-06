@@ -1,5 +1,5 @@
 (*
- * IPWorks SSH 2022 Delphi Edition - Sample Project
+ * IPWorks SSH 2024 Delphi Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -41,11 +41,11 @@ type
     procedure cmdAbortTransferClick(Sender: TObject);
     procedure cmdExitClick(Sender: TObject);
     procedure iphSCP1SSHServerAuthentication(Sender: TObject;
-     HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+     HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
      Status: string; var Accept: Boolean);
     procedure iphSCP1SSHStatus(Sender: TObject; const Message: string);
     procedure iphSExec1SSHServerAuthentication(Sender: TObject;
-     HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+     HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
      Status: string; var Accept: Boolean);
     procedure cmdDownloadClick(Sender: TObject);
     procedure cmdUploadClick(Sender: TObject);
@@ -55,11 +55,11 @@ type
     procedure tbStatusChange(Sender: TObject);
     procedure iphSCP1Transfer(Sender: TObject; Direction: Integer;
       const LocalFile, RemoteFile, RemotePath: string; BytesTransferred: Int64;
-      PercentDone: Integer; Text: string; TextB: TArray<System.Byte>);
+      PercentDone: Integer; Text: string; TextB: TBytes);
     procedure iphSExec1Stdout(Sender: TObject; Text: string;
-      TextB: TArray<System.Byte>);
+      TextB: TBytes);
     procedure iphSExec1Stderr(Sender: TObject; Text: string;
-      TextB: TArray<System.Byte>);
+      TextB: TBytes);
   private
     state: Integer;
     procedure Update_ComboBox(strItem: string);
@@ -88,7 +88,7 @@ procedure TFormScp.cmdAbortTransferClick(Sender: TObject);
 begin
   try
     iphSCP1.Interrupt;
-  except on E: EiphSCP do
+  Except on E: EIPWorksSSH do
     ShowMessage(E.Message);
   end;
 end;
@@ -143,7 +143,7 @@ begin
            iphSExec1.SSHLogon(tbServer.Text, 22);
            iphSCP1.SSHLogon(tbServer.Text, 22);
            Remote_Dir_Refresh();
-         except on E: EiphSCP do
+         Except on E: EIPWorksSSH do
            ShowMessage(E.Message);
          end;
       end;
@@ -178,7 +178,7 @@ begin
       end;
 
       iphscp1.Download;
-    except on E: EiphSCP do
+    Except on E: EIPWorksSSH do
       ShowMessage(E.Message);
     end;
     iphSCP1.RemoteFile := '';
@@ -210,7 +210,7 @@ begin
       end;
 
       iphscp1.Upload;
-    except on E: EiphSCP do
+    Except on E: EIPWorksSSH do
       ShowMessage(E.Message);
     end;
     iphSCP1.RemoteFile := '';
@@ -226,7 +226,7 @@ begin
 end;
 
 procedure TFormScp.iphSCP1SSHServerAuthentication(Sender: TObject;
-  HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+  HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
   Status: string; var Accept: Boolean);
 begin
   Accept := True;
@@ -239,7 +239,7 @@ end;
 
 procedure TFormScp.iphSCP1Transfer(Sender: TObject; Direction: Integer;
   const LocalFile, RemoteFile, RemotePath: string; BytesTransferred: Int64;
-  PercentDone: Integer; Text: string; TextB: TArray<System.Byte>);
+  PercentDone: Integer; Text: string; TextB: TBytes);
 begin
   if Direction = 0 then
   begin
@@ -252,7 +252,7 @@ begin
 end;
 
 procedure TFormScp.iphSExec1SSHServerAuthentication(Sender: TObject;
-  HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+  HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
   Status: string; var Accept: Boolean);
 begin
   Accept := True;
@@ -261,13 +261,13 @@ end;
 
 
 procedure TFormScp.iphSExec1Stderr(Sender: TObject; Text: string;
-  TextB: TArray<System.Byte>);
+  TextB: TBytes);
 begin
 ShowMessage('Error: ' + Text);
 end;
 
 procedure TFormScp.iphSExec1Stdout(Sender: TObject; Text: string;
-  TextB: TArray<System.Byte>);
+  TextB: TBytes);
   var list: TStrings;
       temp: string;
       i: Integer;

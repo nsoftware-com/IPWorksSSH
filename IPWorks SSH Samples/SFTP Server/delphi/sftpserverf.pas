@@ -1,5 +1,5 @@
 (*
- * IPWorks SSH 2022 Delphi Edition - Sample Project
+ * IPWorks SSH 2024 Delphi Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -58,7 +58,8 @@ type
     procedure iphSFTPServer1ConnectionRequest(Sender: TObject;
       const Address: string; Port: Integer; var Accept: Boolean);
     procedure iphSFTPServer1Connected(Sender: TObject; ConnectionId,
-      StatusCode: Integer; const Description: string);
+  StatusCode: Integer; const Description: string; var CertStoreType: Integer;
+  var CertStore, CertPassword, CertSubject: string);
     procedure iphSFTPServer1SSHUserAuthRequest(Sender: TObject;
       ConnectionId: Integer; const User, Service, AuthMethod, AuthParam: string;
       var Accept, PartialSuccess: Boolean; var AvailableMethods,
@@ -152,11 +153,11 @@ begin
   iphSFTPServer1.RootDirectory := txtRootDir.Text;
 
   try
-    iphSFTPServer1.Listening := true;
+    iphSFTPServer1.StartListening();
     txtEventLog.Lines.Add('Server is now listening on port ' + inttostr(iphSFTPServer1.LocalPort));
     btnStop.Enabled := true;
     btnStart.Enabled := false;
-  except on E: EiphSFTPServer do
+  Except on E: EIPWorksSSH do
     showMessage(E.Message);
   end;
 end;
@@ -211,7 +212,8 @@ begin
 end;
 
 procedure TFormsftpserver.iphSFTPServer1Connected(Sender: TObject; ConnectionId,
-  StatusCode: Integer; const Description: string);
+  StatusCode: Integer; const Description: string; var CertStoreType: Integer;
+  var CertStore, CertPassword, CertSubject: string);
 begin
   txtEventLog.Lines.Add('[' + inttostr(ConnectionId) + '] has connected.');
 end;

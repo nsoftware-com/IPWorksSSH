@@ -1,5 +1,5 @@
 (*
- * IPWorks SSH 2022 Delphi Edition - Sample Project
+ * IPWorks SSH 2024 Delphi Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -41,7 +41,7 @@ type
     procedure newtunnelDisconnected(Sender: TObject; ConnectionId,
       StatusCode: Integer; const Description: string);
     procedure newtunnelSSHServerAuthentication(Sender: TObject;
-      HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+      HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
       Status: string; var Accept: Boolean);
     procedure newtunnelSSHStatus(Sender: TObject; const Message: string);
     procedure newtunnelError(Sender: TObject; ConnectionId, ErrorCode: Integer;
@@ -119,7 +119,7 @@ i: Integer;
 begin
   if selIndex > 0 then
   try
-    tunnels[selIndex - 1].Listening := false;
+    tunnels[selIndex - 1].StopListening();
     tunnels.Delete(selIndex -1);
 
     for i := selIndex to sgTunnels.RowCount - 1 do
@@ -220,7 +220,7 @@ begin
 end;
 
 procedure TFormSSHTunnel.newtunnelSSHServerAuthentication(Sender: TObject;
-  HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+  HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
   Status: string; var Accept: Boolean);
 begin
   Accept := true;
@@ -262,11 +262,11 @@ begin
 
   Log1.Lines.Add('Stopping..');
   for i := 0 to tunnels.Count - 1 do
-    tunnels[i].Listening := false;
+    tunnels[i].StopListening();
   Log1.Lines.Add('Stopped.');
   Log1.Lines.Add('Starting..');
   for i := 0 to tunnels.Count - 1 do
-    tunnels[i].Listening := true;
+    tunnels[i].StartListening();
 
   tbtnStart.Enabled := false;
   tbtnStop.Enabled := true;
@@ -284,7 +284,7 @@ begin
 
   Log1.Lines.Add('Starting..');
   for i := 0 to tunnels.Count - 1 do
-    tunnels[i].Listening := true;
+    tunnels[i].StartListening();
 
   tbtnStart.Enabled := false;
   tbtnStop.Enabled := true;
@@ -302,7 +302,7 @@ begin
 
   Log1.Lines.Add('Stopping..');
   for i := 0 to tunnels.Count - 1 do
-    tunnels[i].Listening := false;
+    tunnels[i].StopListening();
 
   tbtnStart.Enabled := true;
   tbtnStop.Enabled := false;

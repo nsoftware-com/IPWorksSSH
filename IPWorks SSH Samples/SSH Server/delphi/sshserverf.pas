@@ -1,5 +1,5 @@
 (*
- * IPWorks SSH 2022 Delphi Edition - Sample Project
+ * IPWorks SSH 2024 Delphi Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -29,7 +29,9 @@ type
     iphSSHServer1: TiphSSHServer;
     procedure buttonStartClick(Sender: TObject);
     procedure iphSSHServer1Connected(Sender: TObject; ConnectionId,
-      StatusCode: Integer; const Description: string);
+      StatusCode: Integer; const Description: string;
+      var CertStoreType: Integer; var CertStore, CertPassword,
+      CertSubject: string);
     procedure iphSSHServer1Disconnected(Sender: TObject; ConnectionId,
       StatusCode: Integer; const Description: string);
     procedure iphSSHServer1SSHChannelOpened(Sender: TObject;
@@ -43,19 +45,19 @@ type
       ChannelId: Integer);
     procedure iphSSHServer1SSHChannelOpenRequest(Sender: TObject; ConnectionId,
       ChannelId: Integer; const Service: string; Parameters: string;
-      var Accept: Boolean);
+      ParametersB: TBytes; var Accept: Boolean);
     procedure iphSSHServer1SSHChannelDataIn(Sender: TObject; ConnectionId,
-      ChannelId: Integer; Data: string; DataB: TArray<System.Byte>);
+      ChannelId: Integer; Data: string; DataB: TBytes);
     procedure iphSSHServer1SSHChannelRequest(Sender: TObject; ConnectionId,
       ChannelId: Integer; const RequestType: string; Packet: string;
-      PacketB: TArray<System.Byte>; var Success: Boolean);
+      PacketB: TBytes; var Success: Boolean);
     procedure iphSSHServer1SSHUserAuthRequest(Sender: TObject;
       ConnectionId: Integer; const User, Service, AuthMethod, AuthParam: string;
       var Accept, PartialSuccess: Boolean; var AvailableMethods: string;
       const KeyAlgorithm: string);
     procedure iphSSHServer1SSHChannelRequested(Sender: TObject; ConnectionId,
       ChannelId: Integer; const RequestType: string; Packet: string;
-      PacketB: TArray<System.Byte>);
+      PacketB: TBytes);
   private
     { Private declarations }
   public
@@ -81,14 +83,14 @@ begin
         iphSSHServer1.SSHCertSubject  := certSubject;
         iphSSHServer1.LocalPort := StrToInt(textPort.Text);
         iphSSHServer1.DefaultTimeout := 10;
-        iphSSHServer1.Listening := true;
+        iphSSHServer1.StartListening();
         buttonStart.Caption := 'Stop';
         memoResponse.Lines.Add('Starting server.');
       end;
     end
   else
     begin
-		  iphSSHServer1.Listening := false;
+		  iphSSHServer1.StopListening();
 		  buttonStart.Caption := 'Start';
 		  memoResponse.Lines.Add('Stopping server.');
     end;
@@ -103,7 +105,9 @@ begin
 end;
 
 procedure TFormSshserver.iphSSHServer1Connected(Sender: TObject; ConnectionId,
-  StatusCode: Integer; const Description: string);
+  StatusCode: Integer; const Description: string;
+  var CertStoreType: Integer; var CertStore, CertPassword,
+  CertSubject: string);
 begin
 	if not StatusCode = 0 then
 	begin
@@ -121,9 +125,9 @@ begin
 	memoResponse.Lines.Add('Client ' + IntToStr(ConnectionId) + ' disconnected.');
 end;
 
-procedure TFormSshserver.iphSSHServer1SSHChannelRequest(Sender: TObject;
-  ConnectionId, ChannelId: Integer; const RequestType: string; Packet: string;
-  PacketB: TArray<System.Byte>; var Success: Boolean);
+procedure TFormSshserver.iphSSHServer1SSHChannelRequest(Sender: TObject; ConnectionId,
+  ChannelId: Integer; const RequestType: string; Packet: string;
+  PacketB: TBytes; var Success: Boolean);
 begin
 	memoResponse.Lines.Add('OnSSHChannelRequest Event: ' + IntToStr(ChannelId) + ' (Request type ' + RequestType + ')');
 	Success := true;
@@ -131,9 +135,9 @@ end;
 
 
 
-procedure TFormSshserver.iphSSHServer1SSHChannelRequested(Sender: TObject;
-  ConnectionId, ChannelId: Integer; const RequestType: string; Packet: string;
-  PacketB: TArray<System.Byte>);
+procedure TFormSshserver.iphSSHServer1SSHChannelRequested(Sender: TObject; ConnectionId,
+  ChannelId: Integer; const RequestType: string; Packet: string;
+  PacketB: TBytes);
 var
     sshParam  : string;
     data :  AnsiString;
@@ -152,7 +156,7 @@ begin
 	  end;
 	  data :=  'You sent the command: ' +  sshParam;
 
-    iphSSHServer1.DataToSendB[ChannelId] := TEncoding.Default.GetBytes(data);
+    iphSSHServer1.SendText(ChannelId, data);
 
 	  packetSend := iphSSHServer1.SetSSHParam(packetSend, 's', 'exit-status');
 	  packetSend := iphSSHServer1.SetSSHParam(packetSend, 'f', 'false');
@@ -191,10 +195,10 @@ begin
 	memoResponse.Lines.Add('OnSSHChannelClosed Event: ' + IntToStr(ChannelId) + '');
 end;
 
-procedure TFormSshserver.iphSSHServer1SSHChannelDataIn(Sender: TObject;
-  ConnectionId, ChannelId: Integer; Data: string; DataB: TArray<System.Byte>);
+procedure TFormSshserver.iphSSHServer1SSHChannelDataIn(Sender: TObject; ConnectionId,
+  ChannelId: Integer; Data: string; DataB: TBytes);
 begin
-  iphSSHServer1.DataToSendB[ChannelId] := DataB;
+  iphSSHServer1.SendBytes(ChannelId, DataB);
 	memoResponse.Lines.Add('Echoing '' + Data + '' to client ' + IntToStr(ChannelId) + '.');
 end;
 
@@ -205,9 +209,9 @@ begin
 end;
 
 
-procedure TFormSshserver.iphSSHServer1SSHChannelOpenRequest(Sender: TObject;
-  ConnectionId, ChannelId: Integer; const Service: string; Parameters: string;
-  var Accept: Boolean);
+procedure TFormSshserver.iphSSHServer1SSHChannelOpenRequest(Sender: TObject; ConnectionId,
+  ChannelId: Integer; const Service: string; Parameters: string;
+  ParametersB: TBytes; var Accept: Boolean);
 begin
    memoResponse.Lines.Add('OnSSHChannelOpenRequest Event: ' + IntToStr(ChannelId) + ' (' + Service + ')');
    Accept := true;

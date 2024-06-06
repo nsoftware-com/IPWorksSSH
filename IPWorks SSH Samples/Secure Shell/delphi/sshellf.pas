@@ -1,5 +1,5 @@
 (*
- * IPWorks SSH 2022 Delphi Edition - Sample Project
+ * IPWorks SSH 2024 Delphi Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -33,7 +33,7 @@ type
     iphSShell1: TiphSShell;
     procedure btnConnectClick(Sender: TObject);
     procedure iphSShell1SSHServerAuthentication(Sender: TObject;
-      HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+      HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
       Status: string; var Accept: Boolean);
     procedure iphSShell1Stdout(Sender: TObject; Text: String);
     procedure iphSShell1Stderr(Sender: TObject; Text: String);
@@ -75,7 +75,7 @@ begin
 end;
 
 procedure TFormSshell.iphSShell1SSHServerAuthentication(Sender: TObject;
-  HostKey: string; HostKeyB: TArray<System.Byte>; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
+  HostKey: string; HostKeyB: TBytes; const Fingerprint, KeyAlgorithm, CertSubject, CertIssuer,
   Status: string; var Accept: Boolean);
 begin
         Accept := True;
@@ -97,7 +97,7 @@ end;
 
 procedure TFormSshell.txtOutputKeyPress(Sender: TObject; var Key: Char);
 begin
-     iphSshell1.Stdin := Key;
+     iphSshell1.SendStdinText(Key);
 end;
 
 end.

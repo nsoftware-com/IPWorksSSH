@@ -20,7 +20,7 @@ type
     tSerialNumber: TEdit;
     Label4: TLabel;
     certMgr: TiphCertMgr;
-    procedure certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+    procedure certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
       const CertSubject, CertIssuer, CertSerialNumber: String;
       HasPrivateKey: Boolean);
     procedure bSignClick(Sender: TObject);
@@ -41,7 +41,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TFormSigncsr.certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+procedure TFormSigncsr.certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
   const CertSubject, CertIssuer, CertSerialNumber: String;
   HasPrivateKey: Boolean);
 begin

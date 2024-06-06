@@ -1,5 +1,5 @@
 /*
- * IPWorks SSH 2022 Java Edition - Sample Project
+ * IPWorks SSH 2024 Java Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -21,19 +21,19 @@ import java.lang.*;
 import ipworksssh.*;
 
 public class scp extends ConsoleDemo {
-	public static class mySCP extends Scp {
+	public static class mySCP extends SCP {
 		
 		public mySCP() {
 			super();
 			try {
-				addScpEventListener(new ipworksssh.ScpEventListener() {
-					public void connected(ipworksssh.ScpConnectedEvent e) {}
+				addSCPEventListener(new ipworksssh.SCPEventListener() {
+					public void connected(ipworksssh.SCPConnectedEvent e) {}
 					
-					public void connectionStatus(ipworksssh.ScpConnectionStatusEvent e) {}
+					public void connectionStatus(ipworksssh.SCPConnectionStatusEvent e) {}
 					
-					public void disconnected(ipworksssh.ScpDisconnectedEvent e) {}
+					public void disconnected(ipworksssh.SCPDisconnectedEvent e) {}
 					
-					public void endTransfer(ipworksssh.ScpEndTransferEvent e) {
+					public void endTransfer(ipworksssh.SCPEndTransferEvent e) {
 						if (e.direction == 0) //client
 						{
 							System.out.println("Uploaded " + e.localFile + " to " + e.remoteFile);
@@ -44,13 +44,13 @@ public class scp extends ConsoleDemo {
 						}
 					}
 					
-					public void error(ipworksssh.ScpErrorEvent e) {}
+					public void error(ipworksssh.SCPErrorEvent e) {}
 					
-					public void SSHCustomAuth(ipworksssh.ScpSSHCustomAuthEvent e){}
+					public void SSHCustomAuth(ipworksssh.SCPSSHCustomAuthEvent e){}
 					
-					public void SSHKeyboardInteractive(ipworksssh.ScpSSHKeyboardInteractiveEvent e) {}			
+					public void SSHKeyboardInteractive(ipworksssh.SCPSSHKeyboardInteractiveEvent e) {}			
 					
-					public void SSHServerAuthentication(ipworksssh.ScpSSHServerAuthenticationEvent e) {
+					public void SSHServerAuthentication(ipworksssh.SCPSSHServerAuthenticationEvent e) {
 						if (e.accept) {
 							return;
 						}
@@ -64,11 +64,11 @@ public class scp extends ConsoleDemo {
 						}
 						return; 
 					}
-					public void SSHStatus(ipworksssh.ScpSSHStatusEvent e) {
+					public void SSHStatus(ipworksssh.SCPSSHStatusEvent e) {
 						System.out.println(e.message);
 					}
 					
-					public void startTransfer(ipworksssh.ScpStartTransferEvent e) {
+					public void startTransfer(ipworksssh.SCPStartTransferEvent e) {
 						if (e.direction == 0) //client
 						{
 							System.out.println("Uploading " + e.localFile + " to " + e.remoteFile);
@@ -79,7 +79,7 @@ public class scp extends ConsoleDemo {
 						}
 					}
 					
-					public void transfer(ipworksssh.ScpTransferEvent e) {
+					public void transfer(ipworksssh.SCPTransferEvent e) {
 						if (e.direction == 0) //client
 						{
 							System.out.println(e.percentDone + "% Uploaded");
@@ -91,7 +91,7 @@ public class scp extends ConsoleDemo {
 					}
 
 					@Override
-					public void log(ScpLogEvent arg0) {}
+					public void log(SCPLogEvent arg0) {}
 				});
 			} catch (TooManyListenersException e) {
 				e.printStackTrace();
@@ -99,49 +99,49 @@ public class scp extends ConsoleDemo {
 		}
 	}
 	
-	public static class mySExec extends Sexec {
+	public static class mySExec extends SExec {
 		private static final long serialVersionUID = 1L;
 		public boolean stdoutFired = false;
 		
 		public mySExec() {
 			super();
 			try {
-				addSexecEventListener(new ipworksssh.SexecEventListener() {
+				addSExecEventListener(new ipworksssh.SExecEventListener() {
 
 					@Override
-					public void SSHCustomAuth(ipworksssh.SexecSSHCustomAuthEvent e) {}
+					public void SSHCustomAuth(ipworksssh.SExecSSHCustomAuthEvent e) {}
 
 					@Override
-					public void SSHKeyboardInteractive(ipworksssh.SexecSSHKeyboardInteractiveEvent e) {}
+					public void SSHKeyboardInteractive(ipworksssh.SExecSSHKeyboardInteractiveEvent e) {}
 
 					@Override
-					public void SSHServerAuthentication(ipworksssh.SexecSSHServerAuthenticationEvent e) {
+					public void SSHServerAuthentication(ipworksssh.SExecSSHServerAuthenticationEvent e) {
 						//If this is reached then the server certificate has already been accepted
 						e.accept = true;
 					}
 
 					@Override
-					public void SSHStatus(ipworksssh.SexecSSHStatusEvent e) {}
+					public void SSHStatus(ipworksssh.SExecSSHStatusEvent e) {}
 
 					@Override
-					public void connected(ipworksssh.SexecConnectedEvent e) {}
+					public void connected(ipworksssh.SExecConnectedEvent e) {}
 
 					@Override
-					public void connectionStatus(ipworksssh.SexecConnectionStatusEvent e) {}
+					public void connectionStatus(ipworksssh.SExecConnectionStatusEvent e) {}
 
 					@Override
-					public void disconnected(ipworksssh.SexecDisconnectedEvent e) {}
+					public void disconnected(ipworksssh.SExecDisconnectedEvent e) {}
 
 					@Override
-					public void error(ipworksssh.SexecErrorEvent e) {}
+					public void error(ipworksssh.SExecErrorEvent e) {}
 
 					@Override
-					public void stderr(ipworksssh.SexecStderrEvent e) {
+					public void stderr(ipworksssh.SExecStderrEvent e) {
 						System.out.println("Error " + new String(e.text));
 					}
 
 					@Override
-					public void stdout(ipworksssh.SexecStdoutEvent e) {
+					public void stdout(ipworksssh.SExecStdoutEvent e) {
 						String[] out = new String(e.text).split("\n");
 						for (int i = 0; i < out.length; i++) {
 							System.out.println(out[i]);
@@ -150,7 +150,7 @@ public class scp extends ConsoleDemo {
 					}
 
 					@Override
-					public void log(SexecLogEvent arg0) {}
+					public void log(SExecLogEvent arg0) {}
 				});
 			} catch (TooManyListenersException e) {
 				e.printStackTrace();
@@ -274,15 +274,13 @@ class ConsoleDemo {
     System.out.print(label + punctuation + " ");
     return input();
   }
-
-  static String prompt(String label, String punctuation, String defaultVal)
-  {
-	System.out.print(label + " [" + defaultVal + "] " + punctuation + " ");
-	String response = input();
-	if(response.equals(""))
-		return defaultVal;
-	else
-		return response;
+  static String prompt(String label, String punctuation, String defaultVal) {
+      System.out.print(label + " [" + defaultVal + "] " + punctuation + " ");
+      String response = input();
+      if (response.equals(""))
+        return defaultVal;
+      else
+        return response;
   }
 
   static char ask(String label) {

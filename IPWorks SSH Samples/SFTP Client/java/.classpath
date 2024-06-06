@@ -4,5 +4,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 
 	<classpathentry kind="lib" path="../../lib/ipworksssh.jar"/>
-	<classpathentry kind="output" path="out/production/sftp"/>
+	<classpathentry kind="output" path="out/production/sftpclient"/>
 </classpath>

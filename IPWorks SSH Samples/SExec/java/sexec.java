@@ -1,5 +1,5 @@
 /*
- * IPWorks SSH 2022 Java Edition - Sample Project
+ * IPWorks SSH 2024 Java Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -19,37 +19,37 @@ import ipworksssh.*;
 
 public class sexec extends ConsoleDemo{
 
-	private static class mySexec extends Sexec {
+	private static class mySExec extends SExec {
 		
 		private static final long serialVersionUID = 1L;
 
-		public mySexec() {
+		public mySExec() {
 			super();
 			try {
-				addSexecEventListener(new ipworksssh.SexecEventListener() {
-					public void stdout(ipworksssh.SexecStdoutEvent e) {
+				addSExecEventListener(new ipworksssh.SExecEventListener() {
+					public void stdout(ipworksssh.SExecStdoutEvent e) {
 						System.out.print(new String(e.text));
 					}
-					public void connected(ipworksssh.SexecConnectedEvent e) {
+					public void connected(ipworksssh.SExecConnectedEvent e) {
 					}
-					public void connectionStatus(ipworksssh.SexecConnectionStatusEvent e) {
+					public void connectionStatus(ipworksssh.SExecConnectionStatusEvent e) {
 					}
-					public void disconnected(ipworksssh.SexecDisconnectedEvent e) {
+					public void disconnected(ipworksssh.SExecDisconnectedEvent e) {
 					}
-					public void error(ipworksssh.SexecErrorEvent e) {
+					public void error(ipworksssh.SExecErrorEvent e) {
 					}
-					public void SSHCustomAuth(ipworksssh.SexecSSHCustomAuthEvent e){}
-					public void SSHKeyboardInteractive(ipworksssh.SexecSSHKeyboardInteractiveEvent e) {
+					public void SSHCustomAuth(ipworksssh.SExecSSHCustomAuthEvent e){}
+					public void SSHKeyboardInteractive(ipworksssh.SExecSSHKeyboardInteractiveEvent e) {
 					}					
-					public void SSHServerAuthentication(ipworksssh.SexecSSHServerAuthenticationEvent e) {
+					public void SSHServerAuthentication(ipworksssh.SExecSSHServerAuthenticationEvent e) {
 						e.accept = true;
 					}
-					public void SSHStatus(ipworksssh.SexecSSHStatusEvent e) {
+					public void SSHStatus(ipworksssh.SExecSSHStatusEvent e) {
 					}
-					public void stderr(ipworksssh.SexecStderrEvent e) {
+					public void stderr(ipworksssh.SExecStderrEvent e) {
 					}
 					@Override
-					public void log(SexecLogEvent arg0) {
+					public void log(SExecLogEvent arg0) {
 					}
 				});
 			} catch (java.util.TooManyListenersException e) {
@@ -59,7 +59,7 @@ public class sexec extends ConsoleDemo{
 	}
 
 	public static void main(String[] args) {
-		mySexec sexec1 = new mySexec();
+		mySExec sexec1 = new mySExec();
 		String host = "";
 		int port = 22;
 		String user = "";
@@ -79,7 +79,7 @@ public class sexec extends ConsoleDemo{
 
 			String commandEscape = "Q";
 			System.out.println("******************************************************");
-			System.out.println("Entering the Sexec command loop.");
+			System.out.println("Entering the SExec command loop.");
 			System.out.println("Type \""+commandEscape+"\" to exit.");
 			System.out.println("******************************************************");
 			// command loop
@@ -120,15 +120,13 @@ class ConsoleDemo {
     System.out.print(label + punctuation + " ");
     return input();
   }
-
-  static String prompt(String label, String punctuation, String defaultVal)
-  {
-	System.out.print(label + " [" + defaultVal + "] " + punctuation + " ");
-	String response = input();
-	if(response.equals(""))
-		return defaultVal;
-	else
-		return response;
+  static String prompt(String label, String punctuation, String defaultVal) {
+      System.out.print(label + " [" + defaultVal + "] " + punctuation + " ");
+      String response = input();
+      if (response.equals(""))
+        return defaultVal;
+      else
+        return response;
   }
 
   static char ask(String label) {

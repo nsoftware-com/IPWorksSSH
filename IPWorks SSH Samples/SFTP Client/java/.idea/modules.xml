@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/sftp.iml" filepath="$PROJECT_DIR$/sftp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sftpclient.iml" filepath="$PROJECT_DIR$/sftpclient.iml" />
     </modules>
   </component>
 </project>

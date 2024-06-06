@@ -2,13 +2,13 @@
 {
   "name": "ipworksssh_sshreversetunnel_demo",
   "version": "0.0.1",
-  "description": "IPWorks SSH 2022 JavaScript Edition - Demo Application",
+  "description": "IPWorks SSH 2024 JavaScript Edition - Demo Application",
   "homepage": "http://www.nsoftware.com",
 	"author": "/n software inc. <sales@nsoftware.com>",
   "main": "sshreversetunnel.js",
   "dependencies": {
     "full-icu": "*",
-    "ipworksssh": "^22.0.8733"
+    "ipworksssh": "^24.0.8923"
   },
   "scripts": {
     "sshreversetunnel": "node sshreversetunnel.js"

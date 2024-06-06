@@ -1,5 +1,5 @@
 (*
- * IPWorks SSH 2022 Delphi Edition - Sample Project
+ * IPWorks SSH 2024 Delphi Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -72,7 +72,7 @@ type
     procedure Refresh1Click(Sender: TObject);
     procedure FormActivate(Sender: TObject);
     procedure tvUserStoresChange(Sender: TObject; Node: TTreeNode);
-    procedure certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+    procedure certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
       const CertSubject, CertIssuer, CertSerialNumber: String;
       HasPrivateKey: Boolean);
     procedure tvMachineStoresChange(Sender: TObject; Node: TTreeNode);
@@ -159,7 +159,7 @@ begin
   pgCertsAndKeysChange(Sender);
 end;
 
-procedure TFormCertmgr.certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+procedure TFormCertmgr.certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
   const CertSubject, CertIssuer, CertSerialNumber: String;
   HasPrivateKey: Boolean);
 var

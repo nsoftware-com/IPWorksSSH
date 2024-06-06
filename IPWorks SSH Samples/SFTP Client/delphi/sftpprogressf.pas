@@ -8,7 +8,7 @@ uses
   StdCtrls, ComCtrls;
 {$ELSE}
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
-  StdCtrls, ComCtrls, iphcore, iphtypes, iphsftp;
+  StdCtrls, ComCtrls, iphcore, iphtypes, iphsftpclient;
 {$ENDIF}
 
 type
@@ -29,16 +29,16 @@ var
 
 implementation
 
-uses sftpf;
+uses sftpclientf;
 
 {$R *.dfm}
 
 procedure TFormSftpprogress.ButtonCancelClick(Sender: TObject);
 begin
    try
-      FormSftp.SFTP1.Interrupt;
-   except on E: EiphSFTP do
-      FormSftp.UpdateNotes(E.Message);
+      FormSftpclient.SFTP1.Interrupt;
+   Except on E: EIPWorksSSH do
+      FormSftpclient.UpdateNotes(E.Message);
    end;
 end;
 

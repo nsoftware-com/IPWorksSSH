@@ -67,7 +67,7 @@ begin
     iphCertMgr1.CreateCertificate('CN=' + txtNewCertSubject.Text, strtoint(txtNewCertSerial.Text));
     iphCertMgr1.ExportCertificate(fileName, txtNewCertPass.Text);
     iphCertMgr1.DeleteCertificate();
-  except on E: EiphCertMgr do
+  Except on E: EIPWorksSSH do
     ShowMessage('Could not generate new certificate: ' + E.Message);
   end;
 

@@ -1,5 +1,5 @@
 /*
- * IPWorks SSH 2022 Java Edition - Sample Project
+ * IPWorks SSH 2024 Java Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 
@@ -21,7 +21,7 @@ import ipworksssh.*;
 public class sshplex extends ConsoleDemo{
 
     public static void main(String[] args) {
-      Sshplex sshplex1 = new Sshplex();
+      SSHPlex sshplex1 = new SSHPlex();
 
       System.out.println("************************************************************************************");
       System.out.println("* This demo shows how to use SSHPlex to perform various operations over a single   *");
@@ -32,29 +32,29 @@ public class sshplex extends ConsoleDemo{
 
       try {
         // Implement event Listeners
-        sshplex1.addSshplexEventListener(new ipworksssh.DefaultSshplexEventListener() {
-          public void dirList(SshplexDirListEvent e) {
+        sshplex1.addSSHPlexEventListener(new ipworksssh.DefaultSSHPlexEventListener() {
+          public void dirList(SSHPlexDirListEvent e) {
             System.out.println(e.fileName);
           }
 
-          public void disconnected(SshplexDisconnectedEvent e) {
+          public void disconnected(SSHPlexDisconnectedEvent e) {
             System.out.println("Goodbye");
           }
 
-          public void downloadComplete(SshplexDownloadCompleteEvent e) {
+          public void downloadComplete(SSHPlexDownloadCompleteEvent e) {
             System.out.println("Downloaded: " + e.remoteFile);
           }
 
-          public void error(SshplexErrorEvent e) {
+          public void error(SSHPlexErrorEvent e) {
             if (e.errorCode == 1040) return; // don't report errors for manual cancellations
             System.out.println("=====================\nError encountered\nError code: " + e.errorCode + "\nError description: " + e.description + "=====================");
           }
 
-          public void executeComplete(SshplexExecuteCompleteEvent e) {
+          public void executeComplete(SSHPlexExecuteCompleteEvent e) {
             System.out.println("Execute complete");
           }
 
-          public void listDirectoryComplete(SshplexListDirectoryCompleteEvent e) {
+          public void listDirectoryComplete(SSHPlexListDirectoryCompleteEvent e) {
             if (e.errorCode == 0) {
               System.out.println("Directory listing of path " + e.remotePath + " complete");
             } else if (e.errorCode == 1040) {
@@ -62,7 +62,7 @@ public class sshplex extends ConsoleDemo{
             }
           }
 
-          public void SSHServerAuthentication(SshplexSSHServerAuthenticationEvent e) {
+          public void SSHServerAuthentication(SSHPlexSSHServerAuthenticationEvent e) {
             if (e.accept) {
               return;
             }
@@ -77,15 +77,15 @@ public class sshplex extends ConsoleDemo{
             return;
           }
 
-          public void stderr(SshplexStderrEvent e) {
+          public void stderr(SSHPlexStderrEvent e) {
             System.out.println(new String(e.text));
           }
 
-          public void stdout(SshplexStdoutEvent e) {
+          public void stdout(SSHPlexStdoutEvent e) {
             System.out.println("\n" + new String(e.text));
           }
 
-          public void uploadComplete(SshplexUploadCompleteEvent e) {
+          public void uploadComplete(SSHPlexUploadCompleteEvent e) {
             System.out.println("Uploaded: " + e.localFile);
           }
 
@@ -102,20 +102,20 @@ public class sshplex extends ConsoleDemo{
         System.out.println("The demo will now execute the \"ls\" command.");
         PromptToContinue();
 
-        sshplex1.setChannelType(Sshplex.cstSExec);
+        sshplex1.setChannelType(SSHPlex.cstSExec);
         opId = sshplex1.execute("ls"); // Begin execution. Output is fired through StdOut, then the ExecuteComplete fires.
         WaitForOpsToFinish(sshplex1, opId);  // Wait for execute operation to complete
 
         //SFTP Operation - File transfer over SFTP (Upload and Download)
 
-        sshplex1.setChannelType(Sshplex.cstSftp); // set ChannelType to SFTP
+        sshplex1.setChannelType(SSHPlex.cstSftp); // set ChannelType to SFTP
         sshplex1.setOverwrite(true);
         System.out.print("\n\nThe SFTP ChannelType is used to transfer files using SFTP.");
         System.out.println("Specify the local and remote files that will be transferred.");
-        System.out.println("Current remote path: " + sshplex1.getRemotePath());
+        System.out.println("Current remote path: " + sshplex1.queryRemotePath());
         userResponse = ask("Do you want to change directory", "?");
         if (Character.toLowerCase(userResponse) == 'y') {
-          sshplex1.setRemotePath(prompt("Input remote path"));
+          sshplex1.changeRemotePath(prompt("Input remote path"));
         }
         prompt("Press enter to list the current directory", ":");
         System.out.println("Listing directory...");
@@ -147,7 +147,7 @@ public class sshplex extends ConsoleDemo{
         
         // SShell Operation - Executing commands using an interactive shell
 
-//      sshplex1.setChannelType(Sshplex.cstSShell);
+//      sshplex1.setChannelType(SSHPlex.cstSShell);
 //      System.out.print("\n\nThe SShell ChannelType is used to send commands over an interactive shell.");
 //      System.out.print("The Execute method executes the command and the StdOut and StdErr events hold the response.");
 //      System.out.println("The demo will execute the \"ls\" command.");
@@ -160,7 +160,7 @@ public class sshplex extends ConsoleDemo{
 
         // SCP Operation - File transfer over SCP (Upload and Download)
 
-//		sshplex1.setChannelType(Sshplex.cstScp);
+//		sshplex1.setChannelType(SSHPlex.cstScp);
 //
 //		sshplex1.setOverwrite(true);
 //		System.out.print("\n\nThe SCP ChannelType is used to transfer files using SCP.");
@@ -169,7 +169,7 @@ public class sshplex extends ConsoleDemo{
 //		userResponse = ask("Do you want to upload a file", "?");
 //		if (Character.toLowerCase(userResponse) == 'y') {
 //			sshplex1.setLocalFile(prompt("Local file (absolute path)"));
-//			sshplex1.setRemotePath(prompt("Remote Path (press enter for current dir)",":", ""));
+//			sshplex1.changeRemotePath(prompt("Remote Path (press enter for current dir)",":", ""));
 //			sshplex1.setRemoteFile(prompt("Remote filename"));
 //			opId = sshplex1.upload();
 //			WaitForOpsToFinish(sshplex1,opId);
@@ -178,7 +178,7 @@ public class sshplex extends ConsoleDemo{
 //
 //		userResponse = ask("Want to download a file", "?");
 //		if (Character.toLowerCase(userResponse) == 'y') {
-//			sshplex1.setRemotePath(prompt("Remote Path (press enter for current dir)", ":", ""));
+//			sshplex1.changeRemotePath(prompt("Remote Path (press enter for current dir)", ":", ""));
 //			sshplex1.setRemoteFile(prompt("Remote filename"));
 //			sshplex1.setLocalFile(prompt("Local file (absolute path)"));
 //			opId = sshplex1.download();
@@ -192,7 +192,7 @@ public class sshplex extends ConsoleDemo{
 //        System.out.println("\nOnce an operation has been started it may later be cancelled using the CancelOperation method");
 //        PromptToContinue();
 //        // Start 2 listDirectories, then cancel 1
-//        sshplex1.setChannelType(Sshplex.cstSftp);
+//        sshplex1.setChannelType(SSHPlex.cstSftp);
 //        String opId1 = sshplex1.listDirectory();
 //        String opId2 = sshplex1.listDirectory();
 //        System.out.println("ListDirectory operations in progress...");
@@ -211,7 +211,7 @@ public class sshplex extends ConsoleDemo{
     }
 
 
-  private static void logon(Sshplex sshplex) throws IPWorksSSHException {
+  private static void logon(SSHPlex sshplex) throws IPWorksSSHException {
     // Logon to a SSH host by setting the following properties and then calling SSHLogon
     String host = prompt("Host", ":");
     int port = Integer.valueOf(prompt("Port", ":", "22")).intValue();
@@ -224,7 +224,7 @@ public class sshplex extends ConsoleDemo{
     prompt("Press enter to continue...");
   }
 
-  static void WaitForOpsToFinish(Sshplex sshplex, String opId) throws IPWorksSSHException {
+  static void WaitForOpsToFinish(SSHPlex sshplex, String opId) throws IPWorksSSHException {
     while (sshplex.getOperations().containsKey(opId)) {
       sshplex.doEvents();
     }
@@ -255,15 +255,13 @@ class ConsoleDemo {
     System.out.print(label + punctuation + " ");
     return input();
   }
-
-  static String prompt(String label, String punctuation, String defaultVal)
-  {
-	System.out.print(label + " [" + defaultVal + "] " + punctuation + " ");
-	String response = input();
-	if(response.equals(""))
-		return defaultVal;
-	else
-		return response;
+  static String prompt(String label, String punctuation, String defaultVal) {
+      System.out.print(label + " [" + defaultVal + "] " + punctuation + " ");
+      String response = input();
+      if (response.equals(""))
+        return defaultVal;
+      else
+        return response;
   }
 
   static char ask(String label) {

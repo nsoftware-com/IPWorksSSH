@@ -18,7 +18,7 @@ type
     procedure FormCreate(Sender: TObject);
     procedure ShowCertDetail();
     procedure buttonOKClick(Sender: TObject);
-    procedure iphCertMgr1CertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+    procedure iphCertMgr1CertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
       const CertSubject, CertIssuer, CertSerialNumber: string;
       HasPrivateKey: Boolean);
     procedure listCertsClick(Sender: TObject);
@@ -56,7 +56,7 @@ begin
   end;
 end;
 
-procedure TFormCert.iphCertMgr1CertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+procedure TFormCert.iphCertMgr1CertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
   const CertSubject, CertIssuer, CertSerialNumber: string;
   HasPrivateKey: Boolean);
 begin

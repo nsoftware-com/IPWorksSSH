@@ -1,5 +1,5 @@
 /*
- * IPWorks SSH 2022 JavaScript Edition - Sample Project
+ * IPWorks SSH 2024 JavaScript Edition - Sample Project
  *
  * This sample project demonstrates the usage of IPWorks SSH in a 
  * simple, straightforward way. It is not intended to be a complete 

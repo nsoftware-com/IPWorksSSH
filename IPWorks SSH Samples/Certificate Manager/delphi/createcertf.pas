@@ -20,7 +20,7 @@ type
     bCancel: TButton;
     tSerialNumber: TEdit;
     certMgr: TiphCertMgr;
-    procedure certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TArray<System.Byte>;
+    procedure certMgrCertList(Sender: TObject; CertEncoded: string; CertEncodedB: TBytes;
       const CertSubject, CertIssuer, CertSerialNumber: String;
       HasPrivateKey: Boolean);
     procedure bCancelClick(Sender: TObject);
@@ -40,7 +40,7 @@ implementation
 {$R *.dfm}
 
 procedure TFormCreatecert.certMgrCertList(Sender: TObject;
-  CertEncoded: string; CertEncodedB: TArray<System.Byte>; const CertSubject, CertIssuer,
+  CertEncoded: string; CertEncodedB: TBytes; const CertSubject, CertIssuer,
   CertSerialNumber: String; HasPrivateKey: Boolean);
 begin
   if HasPrivateKey then cbIssuer.Items.Add(CertSubject);

@@ -2,18 +2,18 @@
 The provided sample projects offer a concise yet effective demonstration of the components from IPWorks SSH, showcasing their usage in a straightforward manner. While they are not intended to be complete applications, they serve as valuable illustrations of key features. To enhance clarity, error handling and checks are simplified, allowing users to focus on the core functionality.
 
 ## Requirements
-IPWorks SSH 2022 libraries for the corresponding edition are required to run these samples.  Free download from: [https://www.nsoftware.com/ipworksssh](https://www.nsoftware.com/ipworksssh)
+IPWorks SSH 2024 libraries for the corresponding edition are required to run these samples.  Free download from: [https://www.nsoftware.com/ipworksssh](https://www.nsoftware.com/ipworksssh)
 
 ## Reference Documentation
-* [Java Edition](https://cdn.nsoftware.com/help/IHH/java/)
-* [.NET Edition](https://cdn.nsoftware.com/help/IHH/cs/)
-* [JavaScript Edition](https://cdn.nsoftware.com/help/IHH/js/)
-* [Python Edition](https://cdn.nsoftware.com/help/IHH/py/)
-* [PHP Edition](https://cdn.nsoftware.com/help/IHH/php/)
-* [C++ Edition](https://cdn.nsoftware.com/help/IHH/cpp/)
-* [Delphi Edition](https://cdn.nsoftware.com/help/IHH/dlp/)
-* [macOS Edition](https://cdn.nsoftware.com/help/IHH/mac/)
-* [iOS Edition](https://cdn.nsoftware.com/help/IHH/mac/)
+* [Java Edition](https://cdn.nsoftware.com/help/IHJ/java/)
+* [.NET Edition](https://cdn.nsoftware.com/help/IHJ/cs/)
+* [JavaScript Edition](https://cdn.nsoftware.com/help/IHJ/js/)
+* [Python Edition](https://cdn.nsoftware.com/help/IHJ/py/)
+* [PHP Edition](https://cdn.nsoftware.com/help/IHJ/php/)
+* [C++ Edition](https://cdn.nsoftware.com/help/IHJ/cpp/)
+* [Delphi Edition](https://cdn.nsoftware.com/help/IHJ/dlp/)
+* [macOS Edition](https://cdn.nsoftware.com/help/IHJ/mac/)
+* [iOS Edition](https://cdn.nsoftware.com/help/IHJ/mac/)
 
 ## Sample Projects
 | Sample Project | Description |
