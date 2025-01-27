@@ -8,7 +8,7 @@
   "main": "sexec.js",
   "dependencies": {
     "full-icu": "*",
-    "ipworksssh": "^24.0.9067"
+    "ipworksssh": "^24.0.9153"
   },
   "scripts": {
     "sexec": "node sexec.js"
